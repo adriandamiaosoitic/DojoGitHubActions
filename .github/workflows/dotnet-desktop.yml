@@ -24,9 +24,21 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: Buildar o código
-      run: dotnet build
-
     - name: Testar o código
       id: test
       run: dotnet test
+
+  build2:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout na Branch
+      uses: actions/checkout@v4
+  
+    - name: Instalar .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Buildar o código
+      run: dotnet build
