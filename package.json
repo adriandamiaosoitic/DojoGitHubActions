@@ -2,7 +2,7 @@
   "name": "teste",
   "version": "1.0.0",
   "description": "teste",
-  "main": "update-issue.js",
+  "main": "adicionar-label.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

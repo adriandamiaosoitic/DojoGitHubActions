@@ -26,6 +26,7 @@ async function updateIssueOnNewComment() {
     if (issueBody && issueBody.includes("[Alta]")) {
         console.log(`A issue contém "Alta". Adicionando a label.`);
         
+        console.log(`${owner}\n${repo}\n${issue_number}`);
         // Adicionar a label "Alta" (substitua com o ID da label real)
         await octokit.issues.addLabels({
             owner,
@@ -34,7 +35,6 @@ async function updateIssueOnNewComment() {
             labels: ['Alta'] // Adicione o nome ou ID da label, dependendo da sua configuração
         });
 
-        console.log(`Label 'Alta' adicionada à issue #${issue_number}.`);
     } else {
         console.log(`A issue não contém "Alta". Nenhuma label adicionada.`);
     }
