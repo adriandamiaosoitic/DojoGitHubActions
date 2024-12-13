@@ -9,18 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout na branch
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
+      - name: Instalação do Node
         uses: actions/setup-node@v2
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Instalação das Dependências
         run: npm install
 
-      - name: Update issue on new comment
+      - name: Atribuição de Label Automática
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
