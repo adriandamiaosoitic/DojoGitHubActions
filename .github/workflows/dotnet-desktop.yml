@@ -24,11 +24,3 @@ jobs:
     - name: Testar o código
       id: test
       run: dotnet test
-
-    - name: Exibir mensagem baseada no resultado
-      run: |
-        if [ "${{ success() }}" = "true" ]; then
-          echo "🎉 Todos os testes passaram com sucesso!";
-        elif [ "${{ failure() }}" = "true" ]; then
-          echo "❌ Os testes falharam. Por favor, verifique os erros.";
-        fi
