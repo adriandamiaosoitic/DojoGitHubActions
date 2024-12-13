@@ -1,47 +1,27 @@
-name: Adicionar labels às issues automaticamente
+name: Label Automation
 
 on:
   issues:
-    types:
-      - opened
+    types: [opened]
 
 jobs:
-  label_issue:
+  update-issue:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Configurar Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Adicionar label com Octokit
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Update issue on new comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          node -e "
-          const { Octokit } = require('@octokit/rest');
-          const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
-          const title = '${{ github.event.issue.title }}';
-          const owner = '${{ github.repository_owner }}';
-          const repo = '${{ github.event.repository.name }}';
-          const issue_number = ${{ github.event.issue.number }};
-
-          let label = null;
-          if (title.includes('[Alta]')) label = 'Alta';
-          else if (title.includes('[Media]')) label = 'Media';
-          else if (title.includes('[Facil]')) label = 'Facil';
-
-          if (label) {
-            octokit.issues.addLabels({
-              owner,
-              repo,
-              issue_number,
-              labels: [label]
-            }).then(() => console.log(\`Label '\${label}' adicionada à issue #\${issue_number}.\`))
-              .catch(error => console.error('Erro ao adicionar a label:', error));
-          } else {
-            console.log('Nenhuma label correspondente encontrada no título.');
-          }
-          "
+        run: node ./scripts/adicionar-label.js
