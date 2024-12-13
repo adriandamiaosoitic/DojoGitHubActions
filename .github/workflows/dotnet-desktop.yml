@@ -2,9 +2,14 @@ name: Garantir que o código funcione
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - dev
     paths:
       - 'BuildETestes/**'
+
+defaults:
+  run:
+    working-directory: ./BuildETestes
 
 jobs:
   build:
