@@ -20,24 +20,25 @@ async function updateIssueOnNewComment() {
         issue_number
     });
 
-    const issueBody = issue.body; // Conteúdo da descrição da issue
-
-    // Verificar se o conteúdo da issue contém a palavra "Alta"
+    const issueBody = issue.body; 
+    
+    let labelAIncluir = '';
     if (issueBody && issueBody.includes("[Alta]")) {
-        console.log(`A issue contém "Alta". Adicionando a label.`);
-        
-        console.log(`${owner}\n${repo}\n${issue_number}`);
-        // Adicionar a label "Alta" (substitua com o ID da label real)
-        await octokit.issues.addLabels({
-            owner,
-            repo,
-            issue_number,
-            labels: ['Alta'] // Adicione o nome ou ID da label, dependendo da sua configuração
-        });
-
-    } else {
-        console.log(`A issue não contém "Alta". Nenhuma label adicionada.`);
+        labelAIncluir = "Alta";
+    } else if (issueBody && issueBody.includes("[Media]")) {
+        labelAIncluir = "Media";
+    } else if (issueBody && issueBody.includes("[Baixa]")) {
+        labelAIncluir = "Baixa";
     }
+
+    console.log("\x1b[32mLabel Inserida:\x1b[0m", labelAIncluir);
+    
+    await octokit.issues.addLabels({
+        owner,
+        repo,
+        issue_number,
+        labels: [labelAIncluir]
+    });
 }
 
 updateIssueOnNewComment();
