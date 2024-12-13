@@ -4,7 +4,9 @@ on:
   push:
     branches: [ "main" ]
   
-  working-directory: 'BuildETestes'
+defaults:
+  run:
+    working-directory: ./BuildETestes
 
 jobs:
   build:
