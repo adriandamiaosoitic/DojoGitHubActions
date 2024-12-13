@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "@octokit/rest": "^20.1.1"
   }
