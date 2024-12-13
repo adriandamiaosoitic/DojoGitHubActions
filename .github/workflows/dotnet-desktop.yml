@@ -3,10 +3,8 @@ name: Garantir que o código funcione
 on:
   push:
     branches: [ "main" ]
-  
-defaults:
-  run:
-    working-directory: ./BuildETestes
+    paths:
+      - 'BuildETestes/**'
 
 jobs:
   build:
