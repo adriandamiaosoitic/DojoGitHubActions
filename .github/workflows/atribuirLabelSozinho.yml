@@ -1,0 +1,41 @@
+name: Adicionar labels às issues automaticamente
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  label_issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configurar o GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Adicionar label com base no título
+        run: |
+          case "${{ github.event.issue.title }}" in
+            *"[Alta]"*)
+              curl -X POST \
+                -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels \
+                -d '{"labels":["Alta"]}'
+              ;;
+            *"[Media]"*)
+              curl -X POST \
+                -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels \
+                -d '{"labels":["Media"]}'
+              ;;
+            *"[Facil]"*)
+              curl -X POST \
+                -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels \
+                -d '{"labels":["Facil"]}'
+              ;;
+          esac
