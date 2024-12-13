@@ -3,6 +3,8 @@ name: Garantir que o código funcione
 on:
   push:
     branches: [ "main" ]
+  
+  working-directory: 'BuildETestes'
 
 jobs:
   build:
