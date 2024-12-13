@@ -3,7 +3,7 @@ name: Garantir que o código funcione
 on:
   push:
     branches:
-      - dev
+      - main
     paths:
       - 'BuildETestes/**'
 
